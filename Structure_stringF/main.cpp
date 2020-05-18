@@ -28,7 +28,7 @@ struct _tagStudent
 
 int main()
 {
-	_tagStudent tStudent; // 한꺼번에 초기화.
+	_tagStudent tStudent; // 한꺼번에 초기화하려면 = {};
 	_tagStudent tStudentArr[100] = {}; //5200바이트
 
 	// 구조체 멤버에 접근할때는 . 을 이용해서 접근하게 된다.
