@@ -1,7 +1,17 @@
 
 #include <iostream>
+#include <string>
 
 using namespace std;
+
+struct _tagStudent
+{
+	int iKor;
+	int iEng;
+	int iMath;
+	int iTotal;
+	float fAvg;
+};
 
 int main()
 {
@@ -40,7 +50,119 @@ int main()
 	cout << "pNum Value : " << pNum << endl;
 	cout << "pNum Address : " << &pNum << endl;
 
+	/*
+	포인터와 배열의 관계 : 배열명은 포인터다. 배열명 자체가 해당 배열의
+	메모리에서의 시작점 주소를 의미한다.
+	*/
+	int iArray[10] = { 1,2,3,4,5,6,7,8,9,10 };
+
+	cout << "Array Address : " << iArray << endl;
+	cout << "Array Address : " << &iArray[0] << endl;
+
+	int *pArray = iArray;
+
+	cout << pArray[2] << endl;
+
+	/*
+	포인터 연산 : +, -  연산을 제공한다. ++, -- 도 가능한데 1을 증가하게되면
+	단순히 메모리주소값이 1증가하는 것이 아니다. int 포인터의 경우
+	int 타입의 메모리 주소를 갖게 되는데 메모리 주소에 1을 더해주면
+	1증가가 아닌 해당 포인터타입의 변수타입 크기만큼 증가하게된다.
+	int 포인터이므로 int의 크기인 4만큼 값이 증가하게 되는것이다.
+	*/
+	cout << pArray << endl;
+	cout << pArray + 2 << endl;
+	cout << *pArray << endl;
+	cout << *(pArray + 2) << endl;  
+	cout << *pArray + 100 << endl;
+
+	char *pText = "테스트 문자열"; 
+	// char포인터문자열을 선언 하려면 vs2017 이상부터는 const 타입임을 명시해줘야한다.
+	// 아니면 프로젝트 속성으로 가서 c++ 언어의 준수속성을 해제해주면 된다.
+
+	cout << pText << endl;
+	cout << (int*)pText << endl;
+
+	pText = "abcd";
 	
+	cout << pText << endl;
+	cout << (int*)pText << endl;
+
+	pText = "abcdefg";
+
+	cout << pText << endl;
+	cout << (int*)pText << endl;
+
+	char	str[8] = "abcdefg";
+
+	cout << str << endl;
+	cout << (int*)str << endl;
+	cout << (int*)&str[0] << endl;
+
+	// 포인트를 쓰는 이유 : 포인터는 다른 변수의 메모리주소를 가지게 되고
+	// 그 메모리주소를 알고있기 때문에 거기에 접근해서 값을 제어하는 역활만한다.
+
+	_tagStudent	tStudent = {};
+
+	tStudent.iKor = 100;
+
+	_tagStudent* pStudent = &tStudent;
+
+	// 연산자 우선순위 때문에 .을 먼저 인식하게 된다. 메모리주소.은 잘못된
+	// 문법이다. 그러므로 *pStudent를 괄호로 감싸준 후에 .을 이용해서
+	// 가리키는 대상의 멤버변수에 접근해야 한다.
+	(*pStudent).iKor = 50;
+
+	// 메모리주소-> 을 이용해서 가리키는 대상의 멤버에 접근할 수 있다.
+	pStudent->iKor = 80;
+	// 위의 두개는 완전 같은 의미이다.
+	cout << tStudent.iKor << endl;
+
+	// void : 타입이 없다. void의 포인터타입을 활용할 수 있다.
+	// void* 변수를 선언하게 되면 이 변수는 어떤 타입의 메모리 주소든
+	// 모두 저장가능하다. 단, 역참조가 불가능하고 메모리 주소만 저장
+	// 가능하다.
+	void* pVoid = &iNumber;
+
+	cout << "iNumber Address : " << pVoid << endl;
+	/**pVoid = 10;*/
+	int* pConvert = (int*)pVoid;
+	*pConvert = 10101010;
+	// 보이드 포인터는 역참조가 불가능하기 때문에 위처럼 타입을 정한
+	// 포인터변수에 넣을때 형변환 해주는식으로 해야 역참조 할 수 있다.
+
+	cout << iNumber << endl;
+
+	pVoid = &tStudent;
+
+	cout << "tStudent Address : " << pVoid << endl;
+
+	int iNumber1 = 1111;
+	iNumber = 2222;
+	pNum = &iNumber;
+
+	// 이중 포인터 : *을 2개 붙인다. 일반 포인터 변수가 일반 변수의 메모리
+	// 주소를 저장하는 변수라면 이중포인터는 포인터의 포인터이다. 즉, 이중
+	// 포인터는 포인터 변수의 메모리 주소를 저장하는 포인터이다.
+	int** ppNum = &pNum;
+
+	*ppNum = &iNumber1;
+	// pNum은 iNumber를 참조하고 있었으나 pNum을 이중포인터 참조하는
+	// ppNum의 역참조값 즉 pNum의 값인 pNum이 참조하는 변수의 주소를 iNumber1으로 
+	// ppNum이 바꿔버림으로써 결과값이 모두 바뀌게 된다.
+	// 결국 바로 아래에서 pNum 역참조는 iNumber 속 값을 바꾸던 것에서
+	// iNumber1 값을 바꾸게 되는 것.
+	*pNum = 3333;
+
+	cout << "iNumber : " << iNumber << endl;
+	cout << "iNumber Addr : " << &iNumber << endl;
+	cout << "*pNum : " << *pNum << endl;
+	cout << "pNum Value : " << pNum << endl;
+	cout << "pNum Addr : " << &pNum << endl;
+	cout << "*ppNum : " << *ppNum << endl;
+	cout << "**ppNum : " << **ppNum << endl;
+	cout << "ppNum Value : " << ppNum << endl;
+	cout << "ppNum Addr : " << &ppNum << endl;
 
 
 	return 0;
