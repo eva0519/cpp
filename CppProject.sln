@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DoubleLinkedList", "DoubleL
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileIO", "FileIO\FileIO.vcxproj", "{B89828E0-DC20-498E-AA43-35E582BB6249}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinaryFile", "BinaryFile\BinaryFile.vcxproj", "{BF969B5F-6A74-407F-BC6F-9B9F2D563871}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -171,6 +173,14 @@ Global
 		{B89828E0-DC20-498E-AA43-35E582BB6249}.Release|x64.Build.0 = Release|x64
 		{B89828E0-DC20-498E-AA43-35E582BB6249}.Release|x86.ActiveCfg = Release|Win32
 		{B89828E0-DC20-498E-AA43-35E582BB6249}.Release|x86.Build.0 = Release|Win32
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Debug|x64.ActiveCfg = Debug|x64
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Debug|x64.Build.0 = Debug|x64
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Debug|x86.ActiveCfg = Debug|Win32
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Debug|x86.Build.0 = Debug|Win32
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Release|x64.ActiveCfg = Release|x64
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Release|x64.Build.0 = Release|x64
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Release|x86.ActiveCfg = Release|Win32
+		{BF969B5F-6A74-407F-BC6F-9B9F2D563871}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

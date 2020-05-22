@@ -4,6 +4,14 @@
 
 using namespace std;
 
+enum GAME_MODE
+{
+	GM_NONE,
+	GM_NEW,
+	GM_LOAD,
+	GM_END
+};
+
 enum MAIN_MENU
 {
 	MM_NONE,
@@ -44,6 +52,14 @@ enum EQUIP
 	EQ_WEAPON,
 	EQ_ARMOR,
 	EQ_MAX
+};
+
+enum STORE_MENU
+{
+	SM_NONE,
+	SM_WEAPON,
+	SM_ARMOR,
+	SM_BACK
 };
 
 enum BATTLE
@@ -136,14 +152,6 @@ struct _tagLevelUpStatus
 	int iMPMax;
 };
 
-enum STORE_MENU
-{
-	SM_NONE,
-	SM_WEAPON,
-	SM_ARMOR,
-	SM_BACK
-};
-
 // 레벨업에 필요한 경험치 목록을 만든다.
 const int g_iLevelUpExp[LEVEL_MAX] = { 4000, 10000, 20000, 35000, 50000, 70000, 100000, 150000, 200000, 400000 };
 _tagLevelUpStatus	g_tLvUpTable[JOB_END - 1] = {};
@@ -224,6 +232,11 @@ int SelectJob()
 
 void SetPlayer(_tagPlayer* pPlayer)
 {
+	system("cls");
+	cin.clear();
+	cin.ignore(1024, '\n');
+
+	// 플레이어 이름을 입력받는다.
 	cout << "이름 : ";
 	cin.getline(pPlayer->strName, NAME_SIZE - 1);
 
@@ -270,6 +283,152 @@ void SetPlayer(_tagPlayer* pPlayer)
 	}
 }
 
+// 저장된게 없거나 로드에 실패했으면 불러오면 안되므로 bool타입.
+bool LoadPlayer(_tagPlayer* pPlayer)
+{
+	FILE* pFile = NULL;
+
+	fopen_s(&pFile, "Player.ply", "rb");
+
+	if (pFile)
+	{
+		// strName과 strJobName은 애초에 배열이기 때문에 배열이름만 적어도 주소값이 넘어가지만
+		// eJob과 같은 enum이나 배열이 아닌것들은 앞에 &을 붙여서 주소값을 넘겨줘야한다.
+		// (배열은 포인터다) fread의 첫번째 인자는 보이드 포인터(즉 메모리 주소)를 요구하기 때문.
+
+		// 플레이어 이름을 읽어온다.
+		fread(pPlayer->strName, 1, NAME_SIZE, pFile);
+
+		// 직업 정보를 읽어온다.
+		fread(&pPlayer->eJob, sizeof(JOB), 1, pFile);
+		fread(pPlayer->strJobName, 1, NAME_SIZE, pFile);
+
+		// 공격력을 읽어온다.
+		fread(&pPlayer->iAttackMin, 4, 1, pFile);
+		fread(&pPlayer->iAttackMax, 4, 1, pFile);
+
+		// 방어력을 읽어온다.
+		fread(&pPlayer->iArmorMin, 4, 1, pFile);
+		fread(&pPlayer->iArmorMax, 4, 1, pFile);
+
+		// 체력을 읽어온다.
+		fread(&pPlayer->iHP, 4, 1, pFile);
+		fread(&pPlayer->iHPMax, 4, 1, pFile);
+
+		// 마나를 읽어온다.
+		fread(&pPlayer->iMP, 4, 1, pFile);
+		fread(&pPlayer->iMPMax, 4, 1, pFile);
+
+		// 경험치와 레벨을 읽어온다.
+		fread(&pPlayer->iExp, 4, 1, pFile);
+		fread(&pPlayer->iLevel, 4, 1, pFile);
+
+		// 무기아이템 착용여부를 읽어온다.
+		fread(&pPlayer->bEquip[EQ_WEAPON], 1, 1, pFile);
+
+		// 만약 저장할때 무기를 차고 있었다면 해당 무기정보도
+		// 같이 저장이 되었다. 그러므로 여기서 차고 있을 경우
+		// 읽어야 한다.
+		if (pPlayer->bEquip[EQ_WEAPON])
+			fread(&pPlayer->tEquip[EQ_WEAPON], sizeof(_tagItem), 1, pFile);
+
+		// 방어구아이템 착용 여부를 읽어온다.
+		fread(&pPlayer->bEquip[EQ_ARMOR], 1, 1, pFile);
+
+		if (pPlayer->bEquip[EQ_ARMOR])
+			fread(&pPlayer->tEquip[EQ_ARMOR], sizeof(_tagItem), 1, pFile);
+
+		// 골드를 읽어온다.
+		fread(&pPlayer->tInventory.iGold, 4, 1, pFile);
+
+		// 인벤토리 아이템 수를 읽어온다.
+		fread(&pPlayer->tInventory.iItemCount, 4, 1, pFile);
+
+		// 읽어온 아이템 수만큼 인벤토리에 아이템정보를 읽어온다.
+		fread(pPlayer->tInventory.tItem, sizeof(_tagItem), 
+			pPlayer->tInventory.iItemCount, pFile);
+		// tInventory에 tItem은 배열로 만들었었으니 &를 붙이면 잣되므로 주의
+		// 마우스 포인터를 갖다대면 보이니 위로가기 귀찮으면 사용하자
+
+		fclose(pFile);
+		return true;
+	}
+
+	return false;
+}
+
+// bool을 이용해서 파일이 제대로 만들어졌는지 판단한다.
+bool SavePlayer(_tagPlayer* pPlayer)
+{
+	FILE* pFile = NULL;
+
+	fopen_s(&pFile, "Player.ply", "wb");
+
+	if (pFile)
+	{
+		// read와 write의 순서는 완벽하게 같아야 하므로 복붙한 뒤 수정한다.
+
+		// 플레이어 이름을 저장한다.
+		fwrite(pPlayer->strName, 1, NAME_SIZE, pFile);
+
+		// 직업 정보를 저장한다.
+		fwrite(&pPlayer->eJob, sizeof(JOB), 1, pFile);
+		fwrite(pPlayer->strJobName, 1, NAME_SIZE, pFile);
+
+		// 공격력을 저장한다.
+		fwrite(&pPlayer->iAttackMin, 4, 1, pFile);
+		fwrite(&pPlayer->iAttackMax, 4, 1, pFile);
+
+		// 방어력을 저장한다.
+		fwrite(&pPlayer->iArmorMin, 4, 1, pFile);
+		fwrite(&pPlayer->iArmorMax, 4, 1, pFile);
+
+		// 체력을 저장한다.
+		fwrite(&pPlayer->iHP, 4, 1, pFile);
+		fwrite(&pPlayer->iHPMax, 4, 1, pFile);
+
+		// 마나를 저장한다.
+		fwrite(&pPlayer->iMP, 4, 1, pFile);
+		fwrite(&pPlayer->iMPMax, 4, 1, pFile);
+
+		// 경험치와 레벨을 저장한다.
+		fwrite(&pPlayer->iExp, 4, 1, pFile);
+		fwrite(&pPlayer->iLevel, 4, 1, pFile);
+
+		// 무기아이템 착용여부를 읽어온다.
+		fwrite(&pPlayer->bEquip[EQ_WEAPON], 1, 1, pFile);
+
+		// 만약 저장할때 무기를 차고 있었다면 해당 무기정보도
+		// 같이 저장이 되었다. 그러므로 여기서 차고 있을 경우
+		// 읽어야 한다.
+		if (pPlayer->bEquip[EQ_WEAPON])
+			fwrite(&pPlayer->tEquip[EQ_WEAPON], sizeof(_tagItem), 1, pFile);
+
+		// 방어구아이템 착용 여부를 저장한다.
+		fwrite(&pPlayer->bEquip[EQ_ARMOR], 1, 1, pFile);
+
+		if (pPlayer->bEquip[EQ_ARMOR])
+			fwrite(&pPlayer->tEquip[EQ_ARMOR], sizeof(_tagItem), 1, pFile);
+
+		// 골드를 저장한다.
+		fwrite(&pPlayer->tInventory.iGold, 4, 1, pFile);
+
+		// 인벤토리 아이템 수를 저장한다.
+		fwrite(&pPlayer->tInventory.iItemCount, 4, 1, pFile);
+
+		// 아이템 수만큼 인벤토리에 아이템정보를 저장한다.
+		fwrite(pPlayer->tInventory.tItem, sizeof(_tagItem),
+			pPlayer->tInventory.iItemCount, pFile);
+		// tInventory에 tItem은 배열로 만들었었으니 &를 붙이면 잣되므로 주의
+		// 마우스 포인터를 갖다대면 보이니 위로가기 귀찮으면 사용하자
+
+		fclose(pFile);
+		return true;
+	}
+
+	return false;
+}
+
 _tagMonster CreateMonster(char* pName, int iAttackMin, int iAttackMax, int iArmorMin,
 	int iArmorMax, int iHP, int iMP, int iLevel, int iExp, int iGoldMin, int iGoldMax)
 {
@@ -295,9 +454,20 @@ _tagMonster CreateMonster(char* pName, int iAttackMin, int iAttackMax, int iArmo
 
 void SetMonster(_tagMonster* pMonsterArr)
 {
-	pMonsterArr[0] = CreateMonster("고블린", 20, 30, 2, 5, 100, 10, 1, 1000, 500, 1500);
-	pMonsterArr[1] = CreateMonster("트롤", 80, 130, 60, 90, 2000, 100, 5, 7000, 6000, 8000);
-	pMonsterArr[2] = CreateMonster("드래곤", 250, 500, 200, 400, 30000, 20000, 10, 30000, 20000, 50000);
+	FILE* pFile = NULL;
+
+	fopen_s(&pFile, "Monster.mst", "rb");
+
+	if (pFile)
+	{
+		fread(pMonsterArr, sizeof(_tagMonster), MT_BACK - 1, pFile);
+
+		fclose(pFile);
+	}
+
+	//pMonsterArr[0] = CreateMonster("고블린", 20, 30, 2, 5, 100, 10, 1, 1000, 500, 1500);
+	//pMonsterArr[1] = CreateMonster("트롤", 80, 130, 60, 90, 2000, 100, 5, 7000, 6000, 8000);
+	//pMonsterArr[2] = CreateMonster("드래곤", 250, 500, 200, 400, 30000, 20000, 10, 30000, 20000, 50000);
 }
 
 void OutputBattleTag(int iMenu)
@@ -622,7 +792,11 @@ int OutputStoreItemList(_tagInventory* pInventory, _tagItem* pStore, int iItemCo
 	{
 		cout << i + 1 << ". 이름 : " << pStore[i].strName <<
 			"\t종류 : " << pStore[i].strTypeName << endl;
-		cout << "공격력 : " << pStore[i].iMin << " - " <<
+		if (pStore[i].eType == IT_WEAPON)
+			cout << "공격력 : ";
+		else if (pStore[i].eType == IT_ARMOR)
+			cout << "방어력 : ";
+		cout << pStore[i].iMin << " - " <<
 			pStore[i].iMax << endl;
 		cout << "판매가격 : " << pStore[i].iPrice <<
 			"\t구매가격 : " << pStore[i].iSell << endl;
@@ -630,7 +804,7 @@ int OutputStoreItemList(_tagInventory* pInventory, _tagItem* pStore, int iItemCo
 	}
 	cout << iItemCount + 1 << ". 뒤로가기" << endl;
 	cout << "보유금액 : " << pInventory->iGold << " Gold" << endl;
-	cout << "남은공간 : " << INVENTORY_MAX - pInventory->iItemCount;
+	cout << "남은공간 : " << INVENTORY_MAX - pInventory->iItemCount << endl;
 	cout << "구입할 아이템을 선택하세요 : ";
 	int iMenu = InputInt();
 
@@ -759,7 +933,13 @@ int OutputInventory(_tagPlayer* pPlayer)
 	{
 		cout << i + 1 << ". 이름 : " << pPlayer->tInventory.tItem[i].strName <<
 			"\t종류 : " << pPlayer->tInventory.tItem[i].strTypeName << endl;
-		cout << "공격력 : " << pPlayer->tInventory.tItem[i].iMin << " - " <<
+
+		if(pPlayer->tInventory.tItem[i].eType == IT_WEAPON)
+			cout << "공격력 : ";
+		else if(pPlayer->tInventory.tItem[i].eType == IT_ARMOR)
+			cout << "방어력 : ";
+
+		cout << pPlayer->tInventory.tItem[i].iMin << " - " <<
 			pPlayer->tInventory.tItem[i].iMax << endl;
 		cout << "판매가격 : " << pPlayer->tInventory.tItem[i].iPrice <<
 			"\t구매가격 : " << pPlayer->tInventory.tItem[i].iSell << endl;
@@ -850,6 +1030,25 @@ void RunInventory(_tagPlayer* pPlayer)
 	}
 }
 
+bool LoadStore(_tagItem* pWeapon, _tagItem* pArmor)
+{
+	FILE* pFile = NULL;
+
+	fopen_s(&pFile, "Store.str", "rb");
+
+	if (pFile)
+	{
+		fread(pWeapon, sizeof(_tagItem), STORE_WEAPON_MAX, pFile);
+		fread(pArmor, sizeof(_tagItem), STORE_ARMOR_MAX, pFile);
+
+		fclose(pFile);
+
+		return true;
+	}
+
+	return false;
+}
+
 int main()
 {
 	srand((unsigned int)time(0));
@@ -857,8 +1056,36 @@ int main()
 	// 게임을 시작할때 플레이어 정보를 설정하게 한다.
 	_tagPlayer	tPlayer = {};
 
+	int iGameMode = 0;
+
+	while (iGameMode <= GM_NONE || iGameMode > GM_END)
+	{
+		cout << "1. 새로하기" << endl;
+		cout << "2. 이어하기" << endl;
+		cout << "3. 종료" << endl;
+		cout << "게임 모드를 선택하세요 : ";
+		iGameMode = InputInt();
+	}
+
+	if (iGameMode == GM_END)
+		return 0;
+
 	// 플레이어의 정보를 정의한다.
-	SetPlayer(&tPlayer);
+	switch (iGameMode)
+	{
+	case GM_NEW:
+		SetPlayer(&tPlayer);
+		break;
+	case GM_LOAD:
+		// false에 !을 붙이면 true가 된다.
+		if (!LoadPlayer(&tPlayer))
+		{
+			cout << "플레이어 파일 오류!!" << endl;
+			return 0;
+		}
+		break;
+	}
+	
 
 	// 몬스터를 생성한다.
 	_tagMonster tMonsterArr[MT_BACK - 1] = {};
@@ -873,14 +1100,14 @@ int main()
 	_tagItem tStoreWeapon[STORE_WEAPON_MAX] = {};
 	_tagItem tStoreArmor[STORE_ARMOR_MAX] = {};
 
-	tStoreWeapon[0] = CreateItem("목검", IT_WEAPON, 5, 10, 1000, 500, "나무로 만든 칼");
+	/*tStoreWeapon[0] = CreateItem("목검", IT_WEAPON, 5, 10, 1000, 500, "나무로 만든 칼");
 	tStoreWeapon[1] = CreateItem("장궁", IT_WEAPON, 20, 10, 7000, 3500, "짱짱한 활");
 	tStoreWeapon[2] = CreateItem("지팡이", IT_WEAPON, 90, 150, 30000, 15000, "나무로 만든 지팡이");
 	tStoreArmor[0] = CreateItem("천갑옷", IT_ARMOR, 2, 5, 1000, 500, "천으로 만든 허접한 갑옷");
 	tStoreArmor[1] = CreateItem("가죽갑옷", IT_ARMOR, 10, 20, 7000, 3500, "동물 가죽으로 만든 질긴 갑옷");
-	tStoreArmor[2] = CreateItem("풀플레이트아머", IT_ARMOR, 70, 90, 30000, 15000, "강철로 만든 판금갑옷");
+	tStoreArmor[2] = CreateItem("풀플레이트아머", IT_ARMOR, 70, 90, 30000, 15000, "강철로 만든 판금갑옷");*/
 
-
+	LoadStore(tStoreWeapon, tStoreArmor);
 
 	bool bLoop = true;
 
@@ -902,6 +1129,9 @@ int main()
 			break;
 		}
 	}
+
+	SavePlayer(&tPlayer);
+	// 종료할 때 세이브
 
 	return 0;
 }
