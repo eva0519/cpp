@@ -87,6 +87,8 @@ public:
 
 		int a;
 		a = 10;
+
+		initializer시 아래와 같은 방식으로 동작된다. 선언과 동시에 초기화.
 		int b = 10; */
 	}
 
