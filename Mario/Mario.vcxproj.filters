@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="01. Core">
+      <UniqueIdentifier>{32d5aa40-0ba6-4732-b062-4c34d4f81af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Stage">
+      <UniqueIdentifier>{fd603455-dc91-49b0-89fe-7ede868a8b04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\01. File">
+      <UniqueIdentifier>{5b85b0f4-6fde-4ce5-8984-0fae53cc7da1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object">
+      <UniqueIdentifier>{c2edd54e-b850-4c42-93ab-d46e02faa4ab}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Running.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>01. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="FileStream.cpp">
+      <Filter>01. Core\01. File</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core.h">
+      <Filter>01. Core</Filter>
+    </ClInclude>
+    <ClInclude Include="value.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="FileStream.h">
+      <Filter>01. Core\01. File</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
