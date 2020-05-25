@@ -51,9 +51,32 @@ bool CMapManager::Init()
 
 void CMapManager::Run()
 {
+	while (true)
+	{
+		m_iEnableStage = OutputMenu();
+
+		if (m_iEnableStage == 4)
+			break;
+	}
 }
 
 void CMapManager::Render()
 {
 	m_pStage[0]->Render();
+}
+
+int CMapManager::OutputMenu()
+{
+	system("cls");
+	cout << "1. Stage1" << endl;
+	cout << "2. Stage2" << endl;
+	cout << "3. Stage3" << endl;
+	cout << "4. Á¾·á" << endl;
+	cout << "Input Stage : ";
+	int iInput = InputInt();
+
+	if (iInput < 1 || iInput > 4)
+		return 0;
+
+	return iInput;
 }

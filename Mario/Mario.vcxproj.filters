@@ -45,6 +45,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>03. Object</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -63,6 +66,9 @@
       <Filter>01. Core\01. File</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
       <Filter>03. Object</Filter>
     </ClInclude>
   </ItemGroup>
