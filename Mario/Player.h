@@ -19,29 +19,39 @@ public:
 	~CPlayer();
 
 private:
-	int		m_iX = 0;
-	int		m_iY = 0;
+	POINT	m_tPos = {};
 	bool	m_bJump = false;
 	int		m_iJumpDir = JD_STOP;
 	int		m_iJumpState = 0;
-
-
-public:
-	void SetPos(int x, int y)
-	{
-		m_iX = x;
-		m_iY = y;
-	}
+	int		m_iScore = 0;
+	bool	m_bComplete = false;
 
 public:
 	int GetX()
 	{
-		return m_iX;
+		return m_tPos.x;
 	}
 
 	int GetY()
 	{
-		return m_iY;
+		return m_tPos.y;
+	}
+
+	int GetScore()
+	{
+		return m_iScore;
+	}
+
+	bool GetComplete()
+	{
+		return m_bComplete;
+	}
+
+public:
+	void SetPos(int x, int y)
+	{
+		m_tPos.x = x;
+		m_tPos.y = y;
 	}
 
 public:

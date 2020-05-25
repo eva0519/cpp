@@ -53,21 +53,35 @@ bool CCore::Init()
 void CCore::Run()
 {
 	// 이런 코드 보이면 각 함수가 뭘 반환하는지 생각하면 분석하기 편하다.
-	//CMapManager::GetInst()->Render();
-	CPlayer* pPlayer = CObjectManager::GetInst()->GetPlayer();
+	// CMapManager::GetInst()->Render();
 
 	while (true)
 	{
-		system("cls");
+		int iStage = OutputMenu();
 
-		CMapManager::GetInst()->Run();
+		if (iStage == 4)
+			break;
 
-		pPlayer->Update();
+		else if (iStage == 0)
+			continue;
 
-		CMapManager::GetInst()->Render();
-
-		// Win32 API 함수로 millonSecond 인자 단위로 멈추라는 명령이다.
-		Sleep(100);
+		CMapManager::GetInst()->Run(iStage - 1);
 	}
 
+}
+
+int CCore::OutputMenu()
+{
+	system("cls");
+	cout << "1. Stage1" << endl;
+	cout << "2. Stage2" << endl;
+	cout << "3. Stage3" << endl;
+	cout << "4. 종료" << endl;
+	cout << "Input Stage : ";
+	int iInput = InputInt();
+
+	if (iInput < 1 || iInput > 4)
+		return 0;
+
+	return iInput;
 }

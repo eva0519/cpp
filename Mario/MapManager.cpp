@@ -1,6 +1,8 @@
 
 #include "MapManager.h"
 #include "Stage.h"
+#include "Player.h"
+#include "ObjectManager.h"
 
 CMapManager* CMapManager::m_pInst = NULL;
 
@@ -49,34 +51,38 @@ bool CMapManager::Init()
 	return true;
 }
 
-void CMapManager::Run()
+void CMapManager::Run(int iStage)
 {
+	CPlayer* pPlayer = CObjectManager::GetInst()->GetPlayer();
+	m_iEnableStage = iStage;
+	
+	pPlayer->SetPos(m_pStage[iStage]->GetStart().x,
+		m_pStage[iStage]->GetStart().y);
+
 	while (true)
 	{
-		m_iEnableStage = OutputMenu();
+		system("cls");
 
-		if (m_iEnableStage == 4)
+		if (GetAsyncKeyState('Q') & 0x8000)
 			break;
+
+		pPlayer->Update();
+		m_pStage[iStage]->Render();
+		cout << "Score : " << pPlayer->GetScore() << endl;
+
+		if (pPlayer->GetComplete())
+		{
+			cout << "완료" << endl;
+			system("pause");
+			break;
+		}
+
+		// Win32 API 함수로 millonSecond 인자 단위로 멈추라는 명령이다.
+		Sleep(100);
 	}
 }
 
 void CMapManager::Render()
 {
 	m_pStage[0]->Render();
-}
-
-int CMapManager::OutputMenu()
-{
-	system("cls");
-	cout << "1. Stage1" << endl;
-	cout << "2. Stage2" << endl;
-	cout << "3. Stage3" << endl;
-	cout << "4. 종료" << endl;
-	cout << "Input Stage : ";
-	int iInput = InputInt();
-
-	if (iInput < 1 || iInput > 4)
-		return 0;
-
-	return iInput;
 }

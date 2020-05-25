@@ -25,13 +25,16 @@ public:
 
 private:
 	CStage* m_pStage[STAGE_MAX_COUNT] = {};
-	int		m_iEnableStage;
+	int		m_iEnableStage = 0;
+
+public:
+	CStage* GetStage()
+	{
+		return m_pStage[m_iEnableStage];
+	}
 
 public:
 	bool Init();
-	void Run();
+	void Run(int iStage);
 	void Render();
-
-private:
-	int OutputMenu();
 };

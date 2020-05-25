@@ -3,15 +3,7 @@
 #include "FileStream.h"
 #include "Player.h"
 #include "ObjectManager.h"
-
-enum STAGE_BLOCK_TYPE
-{
-	SBT_WALL = '0',
-	SBT_ROAD = '1',
-	SBT_START = '2',
-	SBT_END = '3',
-	SBT_COIN = '4'
-};
+#include "string"
 
 CStage::CStage()
 {
@@ -36,7 +28,25 @@ bool CStage::Init(char* pFileName)
 	for (int i = 0; i < 10; i++)
 	{
 		int iSize = 0;
-		file.ReadLine(m_cStage[i], iSize);
+		file.ReadLine(m_cOriginStage[i], iSize);
+
+		for (int j = 0; j < 50; j++)
+		{
+			m_cStage[i][j] = m_cOriginStage[i][j];
+
+			if (m_cOriginStage[i][j] == SBT_START)
+			{
+				m_tStart.x = j;
+				m_tStart.y = i;
+			}
+
+			else if (m_cOriginStage[i][j] == SBT_END)
+			{
+				m_tEnd.x = j;
+				m_tEnd.y = i;
+			}
+		}
+
 	}
 
 
@@ -61,11 +71,64 @@ void CStage::Render()
 
 	// 맵의 출력은 플레이어의 위치를 중심으로 출력한다.
 	// 세로는 플레이어 2칸 위부터 한칸 아래까지 출력한다.
-	// 총 4줄이 출력되는 것이다.
+	// 총 5줄이 출력되는 것이다.
 	// 가로는 플레이어 위치부터 오른쪽 10칸까지 출력한다.
-	for (int i = iY - 2; i <= iY + 1; i++)
+
+	// 맵의 골인 지점까지만 스크롤되다가 표시되도록 제한한다
+	// 출력될 블럭수를 2로 나누어주어서 출력될 가장 아래쪽 인덱스를
+	// 구해준다. 플레이어 위치보다 2칸 아래까지 출력해야 하기 때문이다.
+	int iYCount = iY + (RENDER_BLOCK_Y / 2);
+	// 2로 나누는 이유는 점프를 했을때도 생각을 해야한다.
+	// 위아래 2칸. 플레이어와 스테이지쪽 두 함수가 반복되고 있기 때문에
+	// 점프했을때 현재 위치에 기반해 위로 두칸이 보이고 아래로 두칸이
+	// 보이게 만드는 것.
+
+	// 만약 출력될 아래 2칸이 맵의 가장 아래쪽 개수보다 크거나 같다면
+	// 출력될 아래 인덱스를 가장 마지막 인덱스로 제한한다.
+	if (iYCount >= BLOCK_Y)
+		iYCount = BLOCK_Y - 1;
+
+	// 출력해야 할 최소 인덱스를 구해준다.
+	// 출력해야 할 가장 아래쪽 인덱스에서 출력해야 할 개수 - 1개를 빼주게 되면
+	// 출력해야할 가장 아래쪽 인덱스가 9이고 5개 출력시 9 - 4 가 되므로
+	// 5 ~ 9까지 반복이 돌 수 있도록 최소값을 잡아준다.
+	int iYMin = iYCount - (RENDER_BLOCK_Y - 1);
+
+	// 만약 최소값이 0보다 작다면 인덱스가 없으므로 0으로 제한해준다.
+	if (iYMin < 0)
+		iYMin = 0;
+	// 플레이어의 현재 y값을 2라고 가정하고 위아래 2칸씩 보여야하므로
+	// 0,1,3,4가 위아래 인덱스이다. 플레이어 현재값이 2일때
+	// 위아래 카운트를 위한 iYCount가 4가 되고 - 4를 하면 0이 되므로
+	// 플레이어 y가 2에서 -된다(더 위로 올라간다)해도 맨위 천장인 0까지만
+	// 출력이되도록 최소값을 정해버리는 것.
+
+	// 가로줄 최대 출력수는 현재 플레이어 위치 + 출력해야할 가로개수 이다.
+	int iXCount = iX + RENDER_BLOCK_X;
+
+	// 출력해야 할 가로 인덱스르 최대치가 전체 블럭 수보다 크다면
+	// 잘못된 인덱스이므로 최대 블럭수로 제한해준다.
+	// 아래 for문에서 구해준 이 값보다 작을때까지만 돌리기 때문이다.
+	if (iXCount > BLOCK_X)
+		iXCount = BLOCK_X;
+
+	// X의 최소 인덱스는 플레이어의 위치이다.
+	int iXMin = iX;
+	// 가장 마지막길 10칸은 모두 보여주기 위해서 반복문의 최소값을
+	// 블럭 전체길이 - 출력될 블럭으로 처리해준다.
+	if (iXMin > BLOCK_X - RENDER_BLOCK_X)
+		iXMin = BLOCK_X - RENDER_BLOCK_X;
+	// 캐릭터의 현재위치(iX)가 블럭 마지막 10칸에 도달하면
+	// iXMin 변수는 더이상 iX 값을 보지않고 마지막 10칸부터 랜더를
+	// 하게 만드는 것. 항상 이 랜더 함수는 업데이트 함수와 함께 0.1초
+	// 단위로 반복되고 있다는 것을 생각해야 한다.
+
+	// 이제 define 값을 바꾸는 것만으로 설정변경이 가능하다.
+
+	for (int i = iYMin; i <= iYCount; i++)
 	{
-		for (int j = iX; j < iX + 10; j++)
+
+		for (int j = iXMin; j < iXCount; j++)
 		{
 			if (i == iY && j == iX)
 				cout << "§";
@@ -87,5 +150,17 @@ void CStage::Render()
 		}
 
 		cout << endl;
+
+	}
+}
+
+void CStage::ResetStage()
+{
+	for (int i = 0; i < BLOCK_Y; i++)
+	{
+		for (int j = 0; j < BLOCK_X; j++)
+		{
+			m_cStage[i][j] = m_cOriginStage[i][j];
+		}
 	}
 }

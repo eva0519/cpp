@@ -16,6 +16,14 @@ using namespace std;
 // Stage Max Count
 #define	STAGE_MAX_COUNT	3
 
+// Block Count
+#define BLOCK_X 50
+#define BLOCK_Y 10
+
+// Render Block Count
+#define RENDER_BLOCK_X 10
+#define RENDER_BLOCK_Y 5
+
 static int InputInt()
 {
 	int iInput;

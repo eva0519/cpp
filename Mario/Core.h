@@ -23,4 +23,8 @@ public:
 
 	// 이 함수는 게임을 동작시키는 역할을 한다.
 	void Run();
+
+private:
+	int OutputMenu();
+
 };
