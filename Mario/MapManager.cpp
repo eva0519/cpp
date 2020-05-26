@@ -55,6 +55,8 @@ void CMapManager::Run(int iStage)
 {
 	CPlayer* pPlayer = CObjectManager::GetInst()->GetPlayer();
 	m_iEnableStage = iStage;
+
+	m_pStage[iStage]->ResetStage();
 	
 	pPlayer->SetPos(m_pStage[iStage]->GetStart().x,
 		m_pStage[iStage]->GetStart().y);
@@ -66,13 +68,15 @@ void CMapManager::Run(int iStage)
 		if (GetAsyncKeyState('Q') & 0x8000)
 			break;
 
-		pPlayer->Update();
+		CObjectManager::GetInst()->Update();
+		/*pPlayer->Update();*/
 		m_pStage[iStage]->Render();
 		cout << "Score : " << pPlayer->GetScore() << endl;
 
 		if (pPlayer->GetComplete())
 		{
 			cout << "¿Ï·á" << endl;
+			pPlayer->Reset();
 			system("pause");
 			break;
 		}
