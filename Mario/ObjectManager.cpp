@@ -51,6 +51,38 @@ void CObjectManager::Update()
 	{
 		m_pBullet[i]->Update();
 	}
+
+	for (int i = 0; i < m_iCurBulletCount;)
+	{
+		// 총알이 삭제되어야 할 경우
+		if (!m_pBullet[i]->GetEnable())
+		{
+			delete m_pBullet[i];
+
+			for (int j = i; j < m_iCurBulletCount - 1; j++)
+			{
+				m_pBullet[j] = m_pBullet[j + 1];
+			}
+
+			// 가장 마지막 인덱스를 NULL로 초기화한다.
+			m_pBullet[m_iCurBulletCount - 1] = NULL;
+
+			--m_iCurBulletCount;
+		}
+
+		// 총알이 삭제되지 않을 경우 i를 증가시킨다.
+		else
+			++i;
+		// 첫 for문에 i증감식이 있을경우 그리고 삭제할 총알이 있을 경우
+		// 그 다음 반복문에서 삭제된 메모리주소를 건너 뛰어 버리므로 for문의
+		// 증감식을 지우고, 총알이 삭제되지 않았을 경우에만 i 증감식이 작동하게 한다.
+		// 예를들어 2번인덱스가 총알이라 지워지고 3번인덱스가 2번 인덱스가 되면
+		// 앞에는 2번 인덱스를 검사한 뒤에 총알이라 판명하고 지웠을 것이기 때문에
+		// 2번 인덱스에 대한 검사가 끝나게 된다. 하지만
+		// 3번이 2번으로 온시점에서 2번 인덱스는 새로운 데이터가 되었기에
+		// 새로 검사해야하는 것이다. 그렇기에 제자리에서 한번더 검사를 하고
+		// 이미 이전 반복에서 사라졌기에 그 다음은 else문으로 가 증감식을 진행하게 한다.
+	}
 }
 
 bool CObjectManager::CreateBullet(POINT tPos)

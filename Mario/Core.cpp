@@ -9,6 +9,7 @@ CCore* CCore::m_pInst = NULL;
 // cpp 파일에는 클래스의 구현부분이 있다.
 CCore::CCore()
 {
+	srand((unsigned int)time(0));
 }
 
 CCore::~CCore()
