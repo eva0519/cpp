@@ -64,12 +64,19 @@ void CMapManager::Run(int iStage)
 	while (true)
 	{
 		system("cls");
+		// 출력수가 많을땐 아래 방법으로
+		// 콘솔 커서를 처음으로 옮겨 다음 출력될 데이터를 덮어씌우는 방식으로
+		// 깜박거림을 줄일 수 있다. 하지만 뒤에 올 출력문구가
+		// 앞의 반복 출력문보다 짧을 경우엔 모두 지워지지 않는다.
+		/*COORD pos = { 0,0 };
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);*/
 
 		if (GetAsyncKeyState('Q') & 0x8000)
 			break;
 
 		CObjectManager::GetInst()->Update();
 		/*pPlayer->Update();*/
+		m_pStage[iStage]->Update();
 		m_pStage[iStage]->Render();
 		cout << "Score : " << pPlayer->GetScore() << endl;
 

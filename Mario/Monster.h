@@ -9,7 +9,10 @@ public:
 	~CMonster();
 
 private:
-	POINT m_tPos = {};
+	POINT	m_tPos = {};
+	int		m_iDir = 0; // 움직일 방향이다.
+	int		m_iSpeed = 0;
+	int		m_iFrameCount = 0;
 
 public:
 	void SetPos(int x, int y)
@@ -26,5 +29,6 @@ public:
 
 public:
 	bool Init();
+	void Update();
 };
 

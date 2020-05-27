@@ -52,13 +52,39 @@ public:
 		m_cStage[y][x] = eBlock;
 	}
 
+	int GetMonsterCount()
+	{
+		return m_iMonsterCount;
+	}
+
+	class CMonster* GetMonster(int idx)
+	{
+		return m_pMonsterArray[idx];
+	}
+
+	void DeleteMonster(int idx)
+	{
+		delete m_pMonsterArray[idx];
+
+		for (int i = idx; i < m_iMonsterCount - 1; i++)
+		{
+			m_pMonsterArray[i] = m_pMonsterArray[i + 1];
+		}
+
+		m_pMonsterArray[m_iMonsterCount - 1] = NULL;
+
+		--m_iMonsterCount;
+	}
+
 public:
 	// 이 함수는 그냥 초기화할 목적의 함수이다.
 	bool Init();
 
 	// 이 함수는 파일에서 정보를 읽어와서 설정할 목적의 함수이다.
 	bool Init(char* pFileName);
+	void Update();
 	void Render();
 	void ResetStage();
 	class CMonster* CreateMonster(int x, int y);
+	bool CheckMonster(int x, int y);
 };

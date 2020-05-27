@@ -15,6 +15,12 @@ CStage::CStage():
 
 CStage::~CStage()
 {
+	for (int i = 0; i < m_iMonsterCount; i++)
+	{
+		SAFE_DELETE(m_pMonsterArray[i]);
+	}
+
+	delete[]	m_pMonsterArray;
 }
 
 bool CStage::Init()
@@ -53,6 +59,10 @@ bool CStage::Init(char* pFileName)
 			else if (m_cOriginStage[i][j] == SBT_MONSTER)
 			{
 				CreateMonster(j, i);
+
+				// 7인 부분을 체크하여 몬스터 생성만 하고 ROAD로
+				// 실제 맵을 바꿔준다.
+				m_cStage[i][j] = SBT_ROAD;
 			}
 		}
 
@@ -60,6 +70,14 @@ bool CStage::Init(char* pFileName)
 
 
 	return true;
+}
+
+void CStage::Update()
+{
+	for (int i = 0; i < m_iMonsterCount; i++)
+	{
+		m_pMonsterArray[i]->Update();
+	}
 }
 
 void CStage::Render()
@@ -139,13 +157,17 @@ void CStage::Render()
 
 		for (int j = iXMin; j < iXCount; j++)
 		{
-			if ((i == iY || (i == iY - 1 && pPlayer->GetBigItemEnable())) 
+			if ((i == iY || (i == iY - 1 && pPlayer->GetBigItemEnable()))
 				&& j == iX)
 				cout << "§";
 
 			// 현재 위치에 총알이 있을 경우 총알로 출력한다.
 			else if (CObjectManager::GetInst()->CheckBullet(j, i))
 				cout << "★";
+
+			// 몬스터가 현재 위치에 있다면 몬스터로 출력한다.
+			else if (CheckMonster(j, i))
+				cout << "◆";
 
 			else if (m_cStage[i][j] == SBT_WALL)
 				cout << "■";
@@ -167,9 +189,6 @@ void CStage::Render()
 
 			else if (m_cStage[i][j] == SBT_ITEM_BIG)
 				cout << "◎";
-
-			else if (m_cStage[i][j] == SBT_MONSTER)
-				cout << "◆";
 		}
 
 		cout << endl;
@@ -179,11 +198,26 @@ void CStage::Render()
 
 void CStage::ResetStage()
 {
+	for (int i = 0; i < m_iMonsterCount; i++)
+	{
+		SAFE_DELETE(m_pMonsterArray[i]);
+	}
+
+	m_iMonsterCount = 0;
+
 	for (int i = 0; i < BLOCK_Y; i++)
 	{
 		for (int j = 0; j < BLOCK_X; j++)
 		{
 			m_cStage[i][j] = m_cOriginStage[i][j];
+
+			if (m_cOriginStage[i][j] == SBT_MONSTER)
+			{
+				CreateMonster(j, i);
+				// 7인 부분을 체크하여 몬스터 생성만 하고 ROAD로
+				// 실제 맵을 바꿔준다.
+				m_cStage[i][j] = SBT_ROAD;
+			}
 		}
 	}
 }
@@ -236,4 +270,15 @@ CMonster* CStage::CreateMonster(int x, int y)
 	++m_iMonsterCount;
 
 	return pMonster;
+}
+
+bool CStage::CheckMonster(int x, int y)
+{
+	for (int i = 0; i < m_iMonsterCount; i++)
+	{
+		if (m_pMonsterArray[i]->GetPos().x == x &&
+			m_pMonsterArray[i]->GetPos().y == y)
+			return true;
+	}
+	return false;
 }
