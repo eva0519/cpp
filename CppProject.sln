@@ -47,6 +47,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mario", "Mario\Mario.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClassInherit", "ClassInherit\ClassInherit.vcxproj", "{BFA68F16-F807-4E2E-B750-54BBEE927EC8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TemplateTheory", "TemplateTheory\TemplateTheory.vcxproj", "{9A79F2CE-0C4C-4A06-952F-86875F368A18}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinkedListTemplate", "LinkedListTemplate\LinkedListTemplate.vcxproj", "{F14003CD-CD07-4ED0-A921-A41FE91CD85B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -231,6 +235,22 @@ Global
 		{BFA68F16-F807-4E2E-B750-54BBEE927EC8}.Release|x64.Build.0 = Release|x64
 		{BFA68F16-F807-4E2E-B750-54BBEE927EC8}.Release|x86.ActiveCfg = Release|Win32
 		{BFA68F16-F807-4E2E-B750-54BBEE927EC8}.Release|x86.Build.0 = Release|Win32
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Debug|x64.ActiveCfg = Debug|x64
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Debug|x64.Build.0 = Debug|x64
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Debug|x86.ActiveCfg = Debug|Win32
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Debug|x86.Build.0 = Debug|Win32
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Release|x64.ActiveCfg = Release|x64
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Release|x64.Build.0 = Release|x64
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Release|x86.ActiveCfg = Release|Win32
+		{9A79F2CE-0C4C-4A06-952F-86875F368A18}.Release|x86.Build.0 = Release|Win32
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Debug|x64.ActiveCfg = Debug|x64
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Debug|x64.Build.0 = Debug|x64
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Debug|x86.ActiveCfg = Debug|Win32
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Debug|x86.Build.0 = Debug|Win32
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Release|x64.ActiveCfg = Release|x64
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Release|x64.Build.0 = Release|x64
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Release|x86.ActiveCfg = Release|Win32
+		{F14003CD-CD07-4ED0-A921-A41FE91CD85B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
