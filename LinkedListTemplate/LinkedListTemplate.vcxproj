@@ -139,7 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="listmain.cpp" />
+    <ClCompile Include="listmain.cpp">
+      <ConformanceMode Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ConformanceMode>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinkedList.h" />

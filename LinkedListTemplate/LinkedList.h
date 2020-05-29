@@ -30,6 +30,8 @@ private:
 	friend class CLinkedList;
 	template <typename T>
 	friend class CListIterator;
+	template <typename T>
+	friend class CListReverseIterator;
 
 private:
 	T	m_Data;
@@ -43,7 +45,8 @@ template <typename T>
 class CListIterator
 {
 public:
-	CListIterator()
+	CListIterator() :
+		m_pNode(NULL)
 	{
 
 	}
@@ -91,6 +94,64 @@ public:
 	}
 };
 
+// CReverseInterator Class
+template <typename T>
+class CListReverseIterator
+{
+public:
+	CListReverseIterator()
+	{
+	}
+	~CListReverseIterator()
+	{
+	}
+
+private:
+	template<typename T>
+	friend class CLinkedList;
+
+private:
+	typedef CListNode<T>	NODE;
+	typedef CListNode<T>*	PNODE;
+
+private:
+	PNODE	m_pNode;
+
+public:
+	bool operator == (const CListReverseIterator<T>& iter)
+	{
+		m_pNode == iter.m_pNode;
+	}
+
+	bool operator != (const CListReverseIterator<T>& iter)
+	{
+		return m_pNode != iter.m_pNode;
+	}
+
+	void operator ++()
+	{
+		m_pNode = m_pNode->m_pPrev;
+	}
+
+	void operator --()
+	{
+		m_pNode = m_pNode->m_pNext;
+	}
+
+	/*T operator *(int a)
+	{
+	}
+	만약 곱하기 오퍼레이터를 만들고 싶다면 위처럼 인자를 넣어준다.
+	역참조라면 아래처럼 인자를 비워준다.
+	*/
+
+	T operator *()
+	{
+		return m_pNode->m_Data;
+	}
+};
+
+
 template <typename T>
 class CLinkedList
 {
@@ -118,7 +179,8 @@ private:
 	typedef CListNode<T>*	PNODE;
 
 public:
-	typedef CListIterator<T>	iterator;
+	typedef CListIterator<T>		iterator;
+	typedef CListReverseIterator<T>		reverse_iterator;
 
 private:
 	PNODE			m_pBegin;
@@ -210,6 +272,26 @@ public:
 	{
 		iterator	iter;
 		iter.m_pNode = m_pEnd;
+		// for문의 조건식을 생각하면 end함수는 왜 m_pEnd를 넣는지
+		// 알수있다. 인자로 올 인스턴스의 end와 iter에 있는 end가 같아졌을때는
+		// 그 구절에서 반복문이 실행되면 안되므로(어차피 end는 명시적인 노드니까)
+		// 시작은 begin 노드 다음 노드부터 시작할지언정 end는 end노드로 잡아주는것
+		// for (i = 0; i < 20) 일때 20을 end로 생각했을때 i가 end일때는 반복이 실행되지
+		// 않는 것과 같은 것.
+		return iter;
+	}
+
+	reverse_iterator rbegin()
+	{
+		reverse_iterator iter;
+		iter.m_pNode = m_pEnd->m_pPrev;
+		return iter;
+	}
+
+	reverse_iterator rend()
+	{
+		reverse_iterator iter;
+		iter.m_pNode = m_pBegin;
 		return iter;
 	}
 };
