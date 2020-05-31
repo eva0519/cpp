@@ -38,6 +38,7 @@ public:
 	}
 	~CStack()
 	{
+		// Begin, End를 포함해 싹다 지운다.
 		PNODE	pNode = m_pBegin;
 
 		while (pNode)
@@ -73,6 +74,8 @@ public:
 		++m_iSize;
 	}
 
+	// 자료구조 상에 먼저 나올 첫번째 노드의 데이터를 뽑아내고 
+	// (제일 마지막에 넣었던 데이터) 노드를 삭제하는 함수
 	T pop()
 	{
 		if (empty())
