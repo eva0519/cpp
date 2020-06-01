@@ -57,6 +57,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stack", "Stack\Stack.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Queue", "Queue\Queue.vcxproj", "{2DDD658F-67AE-45C4-A07F-72A71FA1894A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextRpg_ClassInherit_SingletonMacro", "TextRpg_ClassInherit_SingletonMacro\TextRpg_ClassInherit_SingletonMacro.vcxproj", "{8580380D-DA04-497C-8A88-6BECB309F272}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -281,6 +283,14 @@ Global
 		{2DDD658F-67AE-45C4-A07F-72A71FA1894A}.Release|x64.Build.0 = Release|x64
 		{2DDD658F-67AE-45C4-A07F-72A71FA1894A}.Release|x86.ActiveCfg = Release|Win32
 		{2DDD658F-67AE-45C4-A07F-72A71FA1894A}.Release|x86.Build.0 = Release|Win32
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Debug|x64.ActiveCfg = Debug|x64
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Debug|x64.Build.0 = Debug|x64
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Debug|x86.ActiveCfg = Debug|Win32
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Debug|x86.Build.0 = Debug|Win32
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Release|x64.ActiveCfg = Release|x64
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Release|x64.Build.0 = Release|x64
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Release|x86.ActiveCfg = Release|Win32
+		{8580380D-DA04-497C-8A88-6BECB309F272}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

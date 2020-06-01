@@ -139,8 +139,6 @@ private:
 	unsigned int 	m_iTail;
 
 public:
-	// 환형큐의 경우 배열의 끝에서 다시 첫 배열로 돌아가게 
-	// 만드는 idx 변수가 핵심이다.
 	void push(const T& data)
 	{
 		if (full())
