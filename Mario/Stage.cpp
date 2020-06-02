@@ -1,3 +1,4 @@
+#include "..\TextRpg_ClassInherit_SingletonMacro\Stage.h"
 
 #include "Stage.h"
 #include "FileStream.h"
@@ -26,6 +27,11 @@ CStage::~CStage()
 bool CStage::Init()
 {
 	return true;
+}
+
+bool CStage::Run()
+{
+	return false;
 }
 
 bool CStage::Init(char* pFileName)

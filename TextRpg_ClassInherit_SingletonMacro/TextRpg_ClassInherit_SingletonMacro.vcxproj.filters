@@ -16,6 +16,9 @@
     <Filter Include="01. Core">
       <UniqueIdentifier>{9854f487-0cb0-4ac8-9efc-c5ebdc44c8f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Stage">
+      <UniqueIdentifier>{05749bda-cd55-46ab-8a73-66d6cccf6b29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -23,6 +26,21 @@
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>01. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="StageManager.cpp">
+      <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageEasy.cpp">
+      <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageHard.cpp">
+      <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageNormal.cpp">
+      <Filter>02. Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +52,21 @@
     </ClInclude>
     <ClInclude Include="defines.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StageManager.h">
+      <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageEasy.h">
+      <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageNormal.h">
+      <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageHard.h">
+      <Filter>02. Stage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
