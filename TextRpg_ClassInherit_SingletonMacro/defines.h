@@ -6,8 +6,8 @@
 #define SAFE_DELETE_ARRAY(p) if (p) { delete[] p; p = NULL; }
 
 // 싱글톤 매크로
-// 끝에 \를 붙이면 한줄로 인식한다. 마지막에는 붙이지않는다
-// 아래 부분이 그대로 인자를 받은 부분만 변경되어 사용된 코드에 가서 붙는다
+// 끝에 \를 붙이면 한줄로 인식한다. 마지막에는 붙이지않는다.
+// 아래 부분이 그대로 인자를 받은 부분만 변경되어 사용된 코드에 가서 붙는다.
 #define DECLARE_SINGLE(Type)	\
 private:\
 	static Type*	m_pInst;\
