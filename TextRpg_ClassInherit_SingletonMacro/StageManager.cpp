@@ -51,6 +51,9 @@ bool CStageManager::CreateStage(STAGE_TYPE eType)
 		break;
 	}
 
+	// stage를 추상클래스로 만들어 가상함수를 선언했기 때문에
+	// 어떤 stage 동적할당 인스턴스를 생성했건 각자가 보유한 init() 함수를
+	// 실행하게 된다.
 	if (!pStage->Init())
 	{
 		SAFE_DELETE(pStage);

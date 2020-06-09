@@ -15,6 +15,7 @@ class CStageManager
 {
 private:
 	vector<class CStage*>	m_vecStage;
+	// 전방선언
 
 public:
 	bool Init();

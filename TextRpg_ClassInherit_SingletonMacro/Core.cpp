@@ -2,6 +2,7 @@
 #include "StageManager.h"
 
 DEFINITION_SINGLE(CCore)
+// CCore* CCore::m_pInst = NULL;
 
 enum MAIN_MENU
 {
