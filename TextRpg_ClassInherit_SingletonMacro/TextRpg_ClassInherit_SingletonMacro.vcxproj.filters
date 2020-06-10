@@ -19,6 +19,12 @@
     <Filter Include="02. Stage">
       <UniqueIdentifier>{05749bda-cd55-46ab-8a73-66d6cccf6b29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Object">
+      <UniqueIdentifier>{c718022e-38e6-4640-9b82-c50958b95433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\01. Character">
+      <UniqueIdentifier>{1803e199-9ae6-4236-a282-99c40992d8df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +47,21 @@
     </ClCompile>
     <ClCompile Include="StageNormal.cpp">
       <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>03. Object\01. Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>03. Object\01. Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>03. Object\01. Character</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>03. Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +88,24 @@
     </ClInclude>
     <ClInclude Include="StageHard.h">
       <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>03. Object\01. Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>03. Object\01. Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>03. Object\01. Character</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Flags.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
