@@ -7,8 +7,14 @@
 
 class CObj
 {
-public:
+protected:
 	CObj();
 	virtual ~CObj() = 0;
+
+private:
+	friend class CObjectManager;
+
+public:
+	virtual bool init();
 };
 

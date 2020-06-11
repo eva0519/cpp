@@ -7,3 +7,8 @@ CCharacter::CCharacter()
 CCharacter::~CCharacter()
 {
 }
+
+bool CCharacter::init()
+{
+	return true;
+}

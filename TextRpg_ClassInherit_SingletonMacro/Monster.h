@@ -3,8 +3,14 @@
 class CMonster :
 	public CCharacter
 {
-public:
+private:
 	CMonster();
 	~CMonster();
+
+private:
+	friend class CObjectManager;
+
+public:
+	virtual bool init();
 };
 

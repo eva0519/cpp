@@ -8,3 +8,8 @@ CMonster::~CMonster()
 {
 
 }
+
+bool CMonster::init()
+{
+	return true;
+}

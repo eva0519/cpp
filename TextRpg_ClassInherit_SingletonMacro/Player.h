@@ -3,8 +3,14 @@
 class CPlayer :
 	public CCharacter
 {
-public:
+private:
 	CPlayer();
 	~CPlayer();
+
+private:
+	friend class CObjectManager;
+
+public:
+	virtual bool init();
 };
 

@@ -3,8 +3,11 @@
 class CCharacter :
 	public CObj
 {
-public:
+protected:
 	CCharacter();
-	virtual ~CCharacter();
+	virtual ~CCharacter() = 0;
+
+public:
+	virtual bool init();
 };
 

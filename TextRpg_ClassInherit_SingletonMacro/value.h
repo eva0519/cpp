@@ -14,12 +14,11 @@
 #include <string>
 // 스트링 클래스의 경우 문자열을 쓰기 편하게 하기 위해 만들어졌다. 성능이 빠르진 않다.
 
-#include "Flags.h"
-
 using namespace std;
 
 // 사용자정의 헤더
 #include "defines.h"
+#include "Flags.h"
 
 template <typename T>
 T Input()
@@ -51,6 +50,24 @@ void Safe_Delete_VecList(T& p)
 	for (iter = p.begin(); iter != iterEnd; ++iter)
 	{
 		SAFE_DELETE(*iter);
+	}
+
+	p.clear();
+}
+
+template <typename T>
+void Safe_Delete_Map(T& p)
+{
+	T::iterator iter;
+	T::iterator iterEnd = p.end();
+
+	for (iter = p.begin(); iter != iterEnd; ++iter)
+	{
+		// first : key, second : value
+		// value 에 동적할당한 메모리 주소를 저장한 map이라면
+		// 이 함수를 이용해 맵 안의 동적할당된 객체들이 모두 메모리해제가 되는
+		// 시스템이다.
+		SAFE_DELETE(iter->second);
 	}
 
 	p.clear();

@@ -16,7 +16,7 @@ private:
 
 public:
 	bool Init();
-	CObj* CreateObject(OBJECT_TYPE eType);
+	CObj* CreateObject(const string& strkey, OBJECT_TYPE eType);
 
 	DECLARE_SINGLE(CObjectManager);
 };
