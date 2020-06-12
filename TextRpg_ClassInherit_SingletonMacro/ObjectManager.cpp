@@ -23,6 +23,11 @@ bool CObjectManager::Init()
 {
 	// 플레이어를 생성한다.
 	CObj* pPlayer = CreateObject("Player", OT_PLAYER);
+	
+	// CreateObject 함수는 몬스터를 생성하고 CObj* 타입을 리턴한다.
+	// 그런데 몬스터의 기본 변수들은 몬스터의 클래스나 character 클래스가 가지고 있으므로
+	// 몬스터의 클래스로 형변환하여 저장해두고 기능을 사용하도록 한다.
+	CMonster* pMonster = (CMonster*)CreateObject("Goblin", OT_MONSTER);
 
 	return true;
 }
@@ -52,4 +57,17 @@ CObj* CObjectManager::CreateObject(const string& strkey, OBJECT_TYPE eType)
 	m_mapObj.insert(make_pair(strkey, pObj));
 
 	return pObj;
+}
+
+CObj* CObjectManager::FindObject(const string& strkey)
+{
+	// map은 find 함수를 제공해준다. find 함수에 key를 넣어주면 해당 키를 탐색하여
+	// 있을 경우 해당 키의 iterator 를 반환하고 없을 경우 end()를 반환한다.
+	unordered_map<string, CObj*>::iterator iter = m_mapObj.find(strkey);
+
+	// end() 일 경우는 찾지 못했다는 것이다.
+	if (iter == m_mapObj.end())
+		return NULL; // NULL은 0이므로 찾지 못했다는 의미로 쓴다.
+
+	return iter->second;
 }

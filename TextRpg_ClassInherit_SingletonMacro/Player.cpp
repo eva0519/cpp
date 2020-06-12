@@ -13,3 +13,7 @@ bool CPlayer::init()
 {
 	return true;
 }
+
+void CPlayer::Render()
+{
+}
