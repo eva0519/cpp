@@ -22,7 +22,7 @@ public:
 	}
 
 public:
-	// 멤버함수 뒤에 const 가 붙게되면 이 함수 내에서 멤버 변수의 값을 변경할 수 없다
+	// 멤버함수 뒤에 const가 붙게되면 이 함수 내에서 멤버 변수의 값을 변경할 수 없다
 	int GetGoldMin() const
 	{
 		return m_iGoldMin;
