@@ -63,7 +63,7 @@ void Safe_Delete_Map(T& p)
 
 	for (iter = p.begin(); iter != iterEnd; ++iter)
 	{
-		// first : key,  second : value
+		// first : key, second : value
 		// value 에 동적할당한 메모리 주소를 저장한 map이라면
 		// 이 함수를 이용해 맵 안의 동적할당된 객체들이 모두 메모리해제가 되는
 		// 시스템이다.
