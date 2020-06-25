@@ -12,7 +12,7 @@ private:
 	friend class CStageManager;
 
 private:
-	char m_Stage[STAGE_HEIGHT][STAGE_WIDTH];
+	char m_Stage[STAGE_HEIGHT][STAGE_WIDTH] = {};
 
 public:
 	bool Init();

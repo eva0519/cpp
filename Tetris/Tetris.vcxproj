@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StageManager.cpp" />
@@ -147,6 +149,8 @@
   <ItemGroup>
     <ClInclude Include="Core.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Shape.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageManager.h" />
     <ClInclude Include="value.h" />

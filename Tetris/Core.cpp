@@ -5,7 +5,7 @@ CCore* CCore::m_pInst = NULL;
 
 CCore::CCore()
 {
-
+	SetConsoleCursorPosition
 }
 
 CCore::~CCore()
@@ -24,5 +24,5 @@ bool CCore::Init()
 
 void CCore::Run()
 {
-
+	CStageManager::GetInst()->Run();
 }

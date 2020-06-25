@@ -24,6 +24,9 @@ public:
 		SAFE_DELETE(m_pInst);
 	}
 
+private:
+	class CStage* m_pCurStage;
+
 public:
 	bool Init();
 	void Run();

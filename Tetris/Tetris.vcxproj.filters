@@ -19,6 +19,9 @@
     <Filter Include="02. Stage">
       <UniqueIdentifier>{dbbe1b38-585e-47f4-a4fb-c88b152b46db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Shape">
+      <UniqueIdentifier>{8e33c4f1-73c2-4a0e-85a3-e8630d031c94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,6 +35,12 @@
     </ClCompile>
     <ClCompile Include="StageManager.cpp">
       <Filter>02. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>03. Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>03. Shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="StageManager.h">
       <Filter>02. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>03. Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>03. Shape</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
