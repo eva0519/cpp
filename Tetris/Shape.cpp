@@ -1,4 +1,5 @@
 #include "Shape.h"
+#include "Core.h"
 
 CShape::CShape()
 {
@@ -29,6 +30,9 @@ void CShape::Render()
 {
 	for (int i = 0; i < 4; i++)
 	{
+		// 콘솔창에 출력할 좌표를 설정한 후에 출력한다.
+		CCore::GetInst()->SetConsolePos(m_tPos.x, m_tPos.y - (3 - i));
+
 		for (int j = 0; j < 4; j++)
 		{
 			if (m_cShape[i][j] == '0')

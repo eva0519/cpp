@@ -42,6 +42,9 @@
     <ClCompile Include="Rectangle.cpp">
       <Filter>03. Shape</Filter>
     </ClCompile>
+    <ClCompile Include="ShapeManager.cpp">
+      <Filter>03. Shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="value.h">
@@ -64,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="Rectangle.h">
       <Filter>03. Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeManager.h">
+      <Filter>03. Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Flags.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
