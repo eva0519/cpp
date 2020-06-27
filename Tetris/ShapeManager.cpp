@@ -46,7 +46,7 @@ void CShapeManager::Render()
 CShape* CShapeManager::CreateRandomShape()
 {
 	int iType = rand() % static_cast<int>(SHAPE_TYPE::ST_END);
-	// start enum class 를 만들지 않고 end의 나머지를 사용함으로써
+	// start enum을 만들지 않고 end의 나머지를 사용함으로써
 	// enum class type이 추가될때마다 end로 나눈 나머지 즉
 	// end를 제외한 0~end 이전까지의 모든 도형중 랜덤하게 나오게 한다.
 	// start가 있으면 start도 랜덤수중 하나로 포함되어버리므로 제외한것.
