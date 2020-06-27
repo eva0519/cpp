@@ -30,8 +30,12 @@ void CShape::Render()
 {
 	for (int i = 0; i < 4; i++)
 	{
+		int iYIndex = m_tPos.y - (3 - i);
+		if (iYIndex < 0)
+			continue;
+
 		// 콘솔창에 출력할 좌표를 설정한 후에 출력한다.
-		CCore::GetInst()->SetConsolePos(m_tPos.x, m_tPos.y - (3 - i));
+		CCore::GetInst()->SetConsolePos(m_tPos.x, iYIndex);
 
 		for (int j = 0; j < 4; j++)
 		{

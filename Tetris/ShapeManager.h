@@ -34,6 +34,9 @@ private:
 	// 다음에 나올 도형을 표현한다.
 	class CShape* m_pNextShape;
 
+	// 도형을 움직일 틱을 정한다.
+	int		m_iSpeed;
+
 public:
 	void Update();
 	void Render();

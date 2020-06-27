@@ -1,5 +1,7 @@
 #include "ShapeManager.h"
 #include "Rectangle.h"
+#include "StageManager.h"
+#include "Stage.h"
 
 CShapeManager* CShapeManager::m_pInst = NULL;
 
@@ -8,6 +10,7 @@ CShapeManager::CShapeManager():
 	m_pNextShape(NULL)
 {
 	m_pCurShape = CreateRandomShape();
+	m_iSpeed = 0;
 }
 
 CShapeManager::~CShapeManager()
@@ -28,7 +31,30 @@ CShapeManager::~CShapeManager()
 
 void CShapeManager::Update()
 {
-	m_pCurShape->MoveDown();
+	CStage* pStage = CStageManager::GetInst()->GetCurrentStage();
+
+	++m_iSpeed;
+
+	if (pStage->GetSpeed() == m_iSpeed)
+	{
+		m_pCurShape->MoveDown();
+		m_iSpeed = 0;
+	}
+
+	// GetAsyncKeyState 함수는 비동기 처리
+	// GetKeyStage 함수는 호출된 시점에서 메시지큐를 거친다.
+	// GetAsyncKeyState 함수는 키가 바로 이전에 눌렸는가 혹은 눌려져 있는가
+	// 누르지 않았는가를 0x8000, 0x8001, 0x0001, 0x0000 중에
+	// 무엇이 리턴되었는가를 통해 제어할 수 있다.
+	if (GetAsyncKeyState('A') & 0x8000)
+	{
+		m_pCurShape->MoveLeft();
+	}
+
+	if (GetAsyncKeyState('D') & 0x8000)
+	{
+		m_pCurShape->MoveRight();
+	}
 }
 
 void CShapeManager::Render()
