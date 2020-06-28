@@ -10,21 +10,12 @@ CShapeManager::CShapeManager():
 	m_pNextShape(NULL)
 {
 	m_pCurShape = CreateRandomShape();
+	m_pNextShape = CreateRandomShape();
 	m_iSpeed = 0;
 }
 
 CShapeManager::~CShapeManager()
 {
-	list<CShape*>::iterator iterEnd = m_ShapeList.end();
-	// 위와 같이 미리 end 함수를 호출해 넣어두면 아래에서는 그냥 가져다 쓰기만 하면 
-	// 되므로 반복문에서 번번이 end()함수를 호출할 필요가 없어진다. 
-	// 때문에 시간복잡도가 1이냐 n이냐의 차이로 최적화가 가능하다.
-	for (list<CShape*>::iterator iter = m_ShapeList.begin(); iter != iterEnd; 
-		iter++)
-	{
-		SAFE_DELETE(*iter);
-	}
-
 	SAFE_DELETE(m_pCurShape);
 	SAFE_DELETE(m_pNextShape);
 }
@@ -37,7 +28,20 @@ void CShapeManager::Update()
 
 	if (pStage->GetSpeed() == m_iSpeed)
 	{
-		m_pCurShape->MoveDown();
+		// true일 경우 바닥에 닿았으므로 리스트에 추가하고 다음 도형을 현재 도형으로
+		// 만들어준다. 그 후에 다음 도형을 생성한다.
+		if (m_pCurShape->MoveDown())
+		{
+			// 지워주기 전에 블럭을 추가해준다.
+			pStage->AddBlock(m_pCurShape, m_pCurShape->GetPosition());
+
+			SAFE_DELETE(m_pCurShape);
+
+			m_pCurShape = m_pNextShape;
+			m_pCurShape->SetPosition(4, 0);
+
+			m_pNextShape = CreateRandomShape();
+		}
 		m_iSpeed = 0;
 	}
 
@@ -59,14 +63,10 @@ void CShapeManager::Update()
 
 void CShapeManager::Render()
 {
-	list<CShape*>::iterator iterEnd = m_ShapeList.end();
-	for (list<CShape*>::iterator iter = m_ShapeList.begin(); iter != iterEnd;
-		iter++)
-	{
-		(*iter)->Render();
-	}
-
 	m_pCurShape->Render();
+
+	m_pNextShape->SetPosition(12, 4);
+	m_pNextShape->RenderNext();
 }
 
 CShape* CShapeManager::CreateRandomShape()

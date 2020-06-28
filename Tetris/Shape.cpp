@@ -1,5 +1,7 @@
 #include "Shape.h"
 #include "Core.h"
+#include "Stage.h"
+#include "StageManager.h"
 
 CShape::CShape()
 {
@@ -39,6 +41,32 @@ void CShape::Render()
 
 		for (int j = 0; j < 4; j++)
 		{
+			if (m_tPos.x + j >= STAGE_WIDTH)
+				continue;
+			// 공백이 벽을 덮어버리기 때문에 j(x좌표를 출력하는) 반복문 중
+			// 4x4 중 x의 좌표가 스테이지를 추가하는 부분은 출력하지 않는다.
+
+			if (m_cShape[i][j] == '0')
+				cout << "■";
+		}
+
+		cout << endl;
+	}
+}
+
+void CShape::RenderNext()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		int iYIndex = m_tPos.y - (3 - i);
+		if (iYIndex < 0)
+			continue;
+
+		// 콘솔창에 출력할 좌표를 설정한 후에 출력한다.
+		CCore::GetInst()->SetConsolePos(m_tPos.x, iYIndex);
+
+		for (int j = 0; j < 4; j++)
+		{
 			if (m_cShape[i][j] == '0')
 				cout << "■";
 
@@ -50,18 +78,49 @@ void CShape::Render()
 	}
 }
 
-void CShape::MoveDown()
+// 이 함수는 true를 리턴할 경우 바닥이 닿았다는 것이고 
+// false일 경우 바닥에 닿지 않았다.
+bool CShape::MoveDown()
 {
-	if (m_tPos.y == STAGE_HEIGHT - 1)
-		return;
+	CStage* pStage = CStageManager::GetInst()->GetCurrentStage();
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (m_cShape[i][j] == '0')
+			{
+				if (pStage->CheckBlock(m_tPos.x + j, m_tPos.y - (2 - i)))
+				{
+					return true;
+				}
+			}
+		}
+	}
 
 	++m_tPos.y;
+
+	return false;
 }
 
 void CShape::MoveLeft()
 {
 	if (m_tPos.x == 0)
 		return;
+
+	CStage* pStage = CStageManager::GetInst()->GetCurrentStage();
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (m_cShape[i][j] == '0')
+			{
+				if (pStage->CheckBlock(m_tPos.x + j - 1, m_tPos.y - (3 - i)))
+					return;
+			}
+		}
+	}
 
 	--m_tPos.x;
 }
@@ -70,6 +129,20 @@ void CShape::MoveRight()
 {
 	if (m_tPos.x + m_iWidthCount == STAGE_WIDTH)
 		return;
+
+	CStage* pStage = CStageManager::GetInst()->GetCurrentStage();
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (m_cShape[i][j] == '0')
+			{
+				if (pStage->CheckBlock(m_tPos.x + j + 1, m_tPos.y - (3 - i)))
+					return;
+			}
+		}
+	}
 
 	++m_tPos.x;
 }
