@@ -2,6 +2,12 @@
 #include "Rectangle.h"
 #include "StageManager.h"
 #include "Stage.h"
+#include "ShapeGun.h"
+#include "ShapeRGun.h"
+#include "ShapeLine.h"
+#include "ShapeZ.h"
+#include "ShapeS.h"
+#include "ShapeT.h"
 
 CShapeManager* CShapeManager::m_pInst = NULL;
 
@@ -59,6 +65,11 @@ void CShapeManager::Update()
 	{
 		m_pCurShape->MoveRight();
 	}
+
+	if (GetAsyncKeyState('W') & 0x8000)
+	{
+		m_pCurShape->Rotation();
+	}
 }
 
 void CShapeManager::Render()
@@ -77,7 +88,7 @@ CShape* CShapeManager::CreateRandomShape()
 	// end를 제외한 0~end 이전까지의 모든 도형중 랜덤하게 나오게 한다.
 	// start가 있으면 start도 랜덤수중 하나로 포함되어버리므로 제외한것.
 	// enum대신 enum class를 사용해 명시적형변환을 해줌으로써 경고를 제거한다.
-
+	// (int)SHAPE_TYPE::ST_LINE; 그냥 이렇게 형변환 해줘도 된다.
 	return CreateShape((SHAPE_TYPE)iType);
 }
 
@@ -89,6 +100,30 @@ CShape* CShapeManager::CreateShape(SHAPE_TYPE eType)
 	{
 	case SHAPE_TYPE::ST_RECT:
 		pShape = new CRectangle;
+		break;
+
+	case SHAPE_TYPE::ST_LINE:
+		pShape = new CShapeLine;
+		break;
+
+	case SHAPE_TYPE::ST_GUN:
+		pShape = new CShapeGun;
+		break;
+
+	case SHAPE_TYPE::ST_RGUN:
+		pShape = new CShapeRGun;
+		break;
+
+	case SHAPE_TYPE::ST_T:
+		pShape = new CShapeT;
+		break;
+
+	case SHAPE_TYPE::ST_Z:
+		pShape = new CShapeZ;
+		break;
+
+	case SHAPE_TYPE::ST_S:
+		pShape = new CShapeS;
 		break;
 	}
 

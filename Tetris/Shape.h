@@ -9,10 +9,11 @@ public:
 	virtual ~CShape();
 
 protected:
-	char		m_cShape[4][4] = {};
-	POSITION	m_tPos;
-	POSITION	m_tPivot;
-	int			m_iWidthCount;
+	char			m_cShape[4][4] = {};
+	POSITION		m_tPos;
+	POSITION		m_tPivot;
+	int				m_iWidthCount;
+	int				m_iDir;
 
 public:
 	char GetBlock(int x, int y) const
@@ -43,6 +44,7 @@ public:
 
 public:
 	virtual bool Init();
+	virtual void Rotation();
 
 public:
 	void Render();
