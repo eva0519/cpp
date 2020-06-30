@@ -22,7 +22,7 @@ void CStage::AddBlock(class CShape* pShape, const POSITION& tPos)
 				m_Stage[tPos.y - (3 - i)][tPos.x + j] = '0';
 
 				bool	bLine = true;
-				// 현재 줄을 체크한다.
+				// 현재 줄을 체크한다
 				for (int k = 0; k < STAGE_WIDTH; k++)
 				{
 					if (m_Stage[tPos.y - (3 - i)][k] != '0')
@@ -32,8 +32,8 @@ void CStage::AddBlock(class CShape* pShape, const POSITION& tPos)
 					}
 				}
 
-				// 현재 블럭이 채워진 줄이 모두 블럭이라면 한줄 지워준다.
-				// 위의 블럭들을 모두 한칸씩 내려준다.
+				// 현재 블럭이 채워진 줄이 모두 블럭이라면 한줄 지워준다
+				// 위의 블럭들을 모두 한칸씩 내려준다
 				if (bLine)
 				{
 					for (int k = tPos.y - (3 - i); k > 0; --k)
