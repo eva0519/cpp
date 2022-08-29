@@ -1,15 +1,15 @@
 
 #include <iostream>
 #include <functional>
-// functional·Î c++11 ÀÌ»ó¿¡¼­ ÇÔ¼öÆ÷ÀÎÅÍ¸¦ ÆíÇÏ°Ô ¾µ ¼ö ÀÖ´Ù.
+// functionalë¡œ c++11 ì´ìƒì—ì„œ í•¨ìˆ˜í¬ì¸í„°ë¥¼ íŽ¸í•˜ê²Œ ì“¸ ìˆ˜ ìžˆë‹¤.
 
 using namespace std;
 
 /*
-ÇÔ¼öÆ÷ÀÎÅÍ : ÇÔ¼öÀÇ ¸Þ¸ð¸® ÁÖ¼Ò¸¦ ÀúÀåÇÏ±â À§ÇÑ Æ÷ÀÎÅÍ º¯¼ö¸¦ ¼±¾ðÇÒ ¼ö ÀÖ´Ù
-"Àü¿ªÇÔ¼öÀÇ °æ¿ì" "ÇÔ¼ö¸íÀÌ °ð ÇÔ¼öÀÇ ¸Þ¸ð¸® ÁÖ¼Ò"ÀÌ´Ù.
-ÇÔ¼öÆ÷ÀÎÅÍ ¼±¾ð¹æ¹ý: ¹ÝÈ¯Å¸ÀÔ (*Æ÷ÀÎÅÍº¯¼ö¸í)(ÀÎÀÚÅ¸ÀÔ); ÀÇ ÇüÅÂ·Î
-±¸¼ºÀÌ µÈ´Ù.
+í•¨ìˆ˜í¬ì¸í„° : í•¨ìˆ˜ì˜ ë©”ëª¨ë¦¬ ì£¼ì†Œë¥¼ ì €ìž¥í•˜ê¸° ìœ„í•œ í¬ì¸í„° ë³€ìˆ˜ë¥¼ ì„ ì–¸í•  ìˆ˜ ìžˆë‹¤
+"ì „ì—­í•¨ìˆ˜ì˜ ê²½ìš°" "í•¨ìˆ˜ëª…ì´ ê³§ í•¨ìˆ˜ì˜ ë©”ëª¨ë¦¬ ì£¼ì†Œ"ì´ë‹¤.
+í•¨ìˆ˜í¬ì¸í„° ì„ ì–¸ë°©ë²•: ë°˜í™˜íƒ€ìž… (*í¬ì¸í„°ë³€ìˆ˜ëª…)(ì¸ìžíƒ€ìž…); ì˜ í˜•íƒœë¡œ
+êµ¬ì„±ì´ ëœë‹¤.
 */
 
 int Sum(int a, int b)
@@ -53,7 +53,7 @@ public:
 	void Output()
 	{
 		cout << "Hanzo" << endl;
-		// this-> ´Â »ý·«ÇÒ ¼ö ÀÖ´Ù.
+		// this-> ëŠ” ìƒëžµí•  ìˆ˜ ìžˆë‹¤.
 		cout << "Test : " << this->m_iTest << endl;
 	}
 };
@@ -62,13 +62,13 @@ typedef struct _tagPoint
 {
 	int x;
 	int y;
-	// »ý¼ºÀÚ ÇÔ¼ö. + initializer x¸¦0, y¸¦0À¸·Î ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö
+	// ìƒì„±ìž í•¨ìˆ˜. + initializer xë¥¼0, yë¥¼0ìœ¼ë¡œ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜
 	_tagPoint() :
 		x(0),
 		y(0)
 	{
 	}
-	// x´Â_x y´Â_y·Î ÀÎÀÚ¸¦ ¹Þ¾Æ ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö
+	// xëŠ”_x yëŠ”_yë¡œ ì¸ìžë¥¼ ë°›ì•„ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜
 	_tagPoint(int _x, int _y) :
 		x(_x),
 		y(_y)
@@ -77,8 +77,8 @@ typedef struct _tagPoint
 
 	_tagPoint(const _tagPoint& pt)
 	{
-		// ¾èÀº º¹»ç¸¦ ÇÑ´Ù. ÀÌ·¸°Ô ÇØÁÙ °æ¿ì this´Â ÀÚ±âÀÚ½ÅÀÇ Æ÷ÀÎÅÍÀÌ°í
-		// *À» ºÙ¿©¼­ ÀÚ±âÀÚ½ÅÀ» ¿ªÂüÁ¶ÇÏ¿© ¸ðµç µ¥ÀÌÅÍ¸¦ º¹»çÇÏ°Ô ÇÑ´Ù.
+		// ì–•ì€ ë³µì‚¬ë¥¼ í•œë‹¤. ì´ë ‡ê²Œ í•´ì¤„ ê²½ìš° thisëŠ” ìžê¸°ìžì‹ ì˜ í¬ì¸í„°ì´ê³ 
+		// *ì„ ë¶™ì—¬ì„œ ìžê¸°ìžì‹ ì„ ì—­ì°¸ì¡°í•˜ì—¬ ëª¨ë“  ë°ì´í„°ë¥¼ ë³µì‚¬í•˜ê²Œ í•œë‹¤.
 		*this = pt;
 	}
 
@@ -89,7 +89,7 @@ typedef struct _tagPoint
 		result.y = y + pt.y;
 		return result;
 	}
-	// ¿¬»êÀÚ ¿À¹ö·Îµù
+	// ì—°ì‚°ìž ì˜¤ë²„ë¡œë”©
 	_tagPoint operator +(int a)
 	{
 		_tagPoint pt;
@@ -132,7 +132,7 @@ typedef struct _tagPoint
 
 int main()
 {
-	// Àü¿ªÇÔ¼ö¸¦ ÇÔ¼öÆ÷ÀÎÅÍ·Î ¾µ ¶§
+	// ì „ì—­í•¨ìˆ˜ë¥¼ í•¨ìˆ˜í¬ì¸í„°ë¡œ ì“¸ ë•Œ
 	int(*pFunc)(int, int) = Sum;
 
 	cout << pFunc(10, 20) << endl;
@@ -141,43 +141,43 @@ int main()
 
 	pFunc(10, 20);
 
-	/*pFunc = Output;*/  //¹ÝÈ¯Å¸ÀÔ°ú ÀÎÀÚÅ¸ÀÔÀÌ °°¾Æ¾ß ÇÑ´Ù.
+	/*pFunc = Output;*/  //ë°˜í™˜íƒ€ìž…ê³¼ ì¸ìžíƒ€ìž…ì´ ê°™ì•„ì•¼ í•œë‹¤.
 	void(*pFunc1)() = Output;
 	
 	pFunc1();
 
 
-	// ¸â¹öÇÔ¼ö(Å¬·¡½º ³»¿¡ ÀÖ´Â ÇÔ¼ö)¸¦ ÇÔ¼öÆ÷ÀÎÅÍ·Î ¾²°í½ÍÀ» ¶§
+	// ë©¤ë²„í•¨ìˆ˜(í´ëž˜ìŠ¤ ë‚´ì— ìžˆëŠ” í•¨ìˆ˜)ë¥¼ í•¨ìˆ˜í¬ì¸í„°ë¡œ ì“°ê³ ì‹¶ì„ ë•Œ
 	CHanzo hanzo1, hanzo2;
 
 	hanzo1.m_iTest = 100;
 	hanzo2.m_iTest = 200;
 
-	// this Æ÷ÀÎÅÍ : Å¬·¡½º ¾È¿¡¼­ this¸¦ »ç¿ëÇÒ°æ¿ì ÇØ´ç °´Ã¼ÀÇ ¸Þ¸ð¸®
-	// ÁÖ¼Ò°¡ µÈ´Ù. Áï ÀÚ±âÀÚ½ÅÀÇ Æ÷ÀÎÅÍÀÌ´Ù.
-	// ¸â¹öÇÔ¼ö¸¦ È£ÃâÇÒ¶§ this¸¦ È£ÃâÀÚ·Î ¼¼ÆÃÇÑ´Ù.
+	// this í¬ì¸í„° : í´ëž˜ìŠ¤ ì•ˆì—ì„œ thisë¥¼ ì‚¬ìš©í• ê²½ìš° í•´ë‹¹ ê°ì²´ì˜ ë©”ëª¨ë¦¬
+	// ì£¼ì†Œê°€ ëœë‹¤. ì¦‰ ìžê¸°ìžì‹ ì˜ í¬ì¸í„°ì´ë‹¤.
+	// ë©¤ë²„í•¨ìˆ˜ë¥¼ í˜¸ì¶œí• ë•Œ thisë¥¼ í˜¸ì¶œìžë¡œ ì„¸íŒ…í•œë‹¤.
 	hanzo1.Output();
 	hanzo2.Output();
 
-	// ¸â¹öÇÔ¼öÆ÷ÀÎÅÍ ¼±¾ð½Ã Æ÷ÀÎÅÍº¯¼ö ÀÌ¸§ ¾Õ¿¡ Å¬·¡½º¸í:: À» ºÙ¿©ÁØ´Ù.
+	// ë©¤ë²„í•¨ìˆ˜í¬ì¸í„° ì„ ì–¸ì‹œ í¬ì¸í„°ë³€ìˆ˜ ì´ë¦„ ì•žì— í´ëž˜ìŠ¤ëª…:: ì„ ë¶™ì—¬ì¤€ë‹¤.
 	void(CHanzo:: * pFunc2)() = &CHanzo::Output;
-	// ´ëÀÔÇÒ ¸â¹öÇÔ¼öÀÇ Å¬·¡½º¸í ¾Õ¿¡ &µµ ºÙ¿©Áà¾ßÇÑ´Ù.
+	// ëŒ€ìž…í•  ë©¤ë²„í•¨ìˆ˜ì˜ í´ëž˜ìŠ¤ëª… ì•žì— &ë„ ë¶™ì—¬ì¤˜ì•¼í•œë‹¤.
 
 	/*(*pFunc2)();*/
 	(hanzo1.*pFunc2)();
-	// c++11 ÀÌÀü¿¡¼­´Â this-> <<< this¿¡ ³Ö¾îÁÙ Æ÷ÀÎÅÍ ´ë»ó °´Ã¼°¡ ÇÊ¿äÇÏ¹Ç·Î
-	// À§¿Í°°Àº ½ÄÀ¸·Î¹Û¿¡ »ç¿ëÇÒ ¼ö ¾ø¾î¼­ ¹ø°Å·Î¿ü´Ù.
+	// c++11 ì´ì „ì—ì„œëŠ” this-> <<< thisì— ë„£ì–´ì¤„ í¬ì¸í„° ëŒ€ìƒ ê°ì²´ê°€ í•„ìš”í•˜ë¯€ë¡œ
+	// ìœ„ì™€ê°™ì€ ì‹ìœ¼ë¡œë°–ì— ì‚¬ìš©í•  ìˆ˜ ì—†ì–´ì„œ ë²ˆê±°ë¡œì› ë‹¤.
 
 	/*
-	function ±â´ÉÀº C++11 ºÎÅÍ Áö¿øÀ» ÇØÁÖ´Â ±â´ÉÀÌ´Ù. ÀÌ ±â´ÉÀº ÇÔ¼öÆ÷ÀÎÅÍ¸¦
-	Àü¿ª, ¸â¹ö °¡¸®Áö ¾Ê°í ½±°Ô ÁÖ¼Ò¸¦ ÀúÀåÇØ¼­ È£ÃâÇØÁÙ ¼ö ÀÖµµ·Ï ¸¸µé¾îÁÖ´Â
-	±â´ÉÀÌ´Ù.
-	¼±¾ð¹æ¹ý : function<¹ÝÈ¯Å¸ÀÔ(ÀÎÀÚÅ¸ÀÔ)> º¯¼ö¸í; ÀÇ ÇüÅÂ·Î ¼±¾ðÇÑ´Ù.
+	function ê¸°ëŠ¥ì€ C++11 ë¶€í„° ì§€ì›ì„ í•´ì£¼ëŠ” ê¸°ëŠ¥ì´ë‹¤. ì´ ê¸°ëŠ¥ì€ í•¨ìˆ˜í¬ì¸í„°ë¥¼
+	ì „ì—­, ë©¤ë²„ ê°€ë¦¬ì§€ ì•Šê³  ì‰½ê²Œ ì£¼ì†Œë¥¼ ì €ìž¥í•´ì„œ í˜¸ì¶œí•´ì¤„ ìˆ˜ ìžˆë„ë¡ ë§Œë“¤ì–´ì£¼ëŠ”
+	ê¸°ëŠ¥ì´ë‹¤.
+	ì„ ì–¸ë°©ë²• : function<ë°˜í™˜íƒ€ìž…(ì¸ìžíƒ€ìž…)> ë³€ìˆ˜ëª…; ì˜ í˜•íƒœë¡œ ì„ ì–¸í•œë‹¤.
 	*/
 	function<void()> func;
 	function<void()> func1;
 
-	// bind¸¦ ÀÌ¿ëÇØ¼­ ÇÔ¼ö¸¦ ¹­¾îÁØ´Ù.
+	// bindë¥¼ ì´ìš©í•´ì„œ í•¨ìˆ˜ë¥¼ ë¬¶ì–´ì¤€ë‹¤.
 	func = bind(Output);
 	func1 = bind(&CHanzo::Output, &hanzo2);
 
@@ -188,11 +188,11 @@ int main()
 	function<int(int, int)> func3;
 	function<float(float)> func4;
 
-	// ÇÔ¼ö¿¡ ÀÎÀÚ°¡ ÀÖÀ» °æ¿ì placeholders ¸¦ ÀÌ¿ëÇØ¼­ ÀÎÀÚÀÇ ¼ø¼­¸¦
-	// Á¤ÀÇÇÒ ¼ö ÀÖ´Ù. ¾Æ·¡Ã³·³ 2, 1·Î ³Ö¾îÁÖ¸é ÀÎÀÚ°¡ ¼­·Î ¹Ù²î°Ô µÈ´Ù.
+	// í•¨ìˆ˜ì— ì¸ìžê°€ ìžˆì„ ê²½ìš° placeholders ë¥¼ ì´ìš©í•´ì„œ ì¸ìžì˜ ìˆœì„œë¥¼
+	// ì •ì˜í•  ìˆ˜ ìžˆë‹¤. ì•„ëž˜ì²˜ëŸ¼ 2, 1ë¡œ ë„£ì–´ì£¼ë©´ ì¸ìžê°€ ì„œë¡œ ë°”ë€Œê²Œ ëœë‹¤.
 	func3 = bind(OutSum, placeholders::_2, placeholders::_1);
 
-	// À§¿¡¼­ 2, 1·Î ¹Ù²ãÁáÀ¸¹Ç·Î 10Àº b¿¡ 20Àº a¿¡ µé¾î°¡°Ô µÈ´Ù.
+	// ìœ„ì—ì„œ 2, 1ë¡œ ë°”ê¿”ì¤¬ìœ¼ë¯€ë¡œ 10ì€ bì— 20ì€ aì— ë“¤ì–´ê°€ê²Œ ëœë‹¤.
 	func3(10, 20);
 
 	func4 = bind(TestFunc, placeholders::_1);
@@ -203,9 +203,9 @@ int main()
 	cout << "============== Point ==============" << endl;
 	POINT pt1(10, 20), pt2(30, 40), pt3;
 
-	// POINT ±¸Á¶Ã¼´Â +¿¬»êÀÚ°¡ operator·Î ÀçÁ¤ÀÇ µÇ¾îÀÖ´Ù.
-	// ±×·¡¼­ + ¿¬»êÀÌ °¡´ÉÇÏ°Ô µÇ°í pt1ÀÇ + ¿¬»êÀÚ ÇÔ¼ö¸¦ È£ÃâÇØÁÖ´Â
-	// °³³äÀÌ´Ù. pt2¸¦ ÀÎÀÚ·Î ³Ñ°ÜÁØ´Ù.
+	// POINT êµ¬ì¡°ì²´ëŠ” +ì—°ì‚°ìžê°€ operatorë¡œ ìž¬ì •ì˜ ë˜ì–´ìžˆë‹¤.
+	// ê·¸ëž˜ì„œ + ì—°ì‚°ì´ ê°€ëŠ¥í•˜ê²Œ ë˜ê³  pt1ì˜ + ì—°ì‚°ìž í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•´ì£¼ëŠ”
+	// ê°œë…ì´ë‹¤. pt2ë¥¼ ì¸ìžë¡œ ë„˜ê²¨ì¤€ë‹¤.
 	pt3 = pt1 + pt2;
 
 	pt3 << pt1;
@@ -221,9 +221,8 @@ int main()
 	--pt3;
 
 	cout << "x : " << pt3.x << "\ty : " << pt3.y << endl;
-	// Å¬·¡½º¿¡µµ ¶È°°ÀÌ operator¸¦ ¸¸µé¼ö ÀÖ´Ù.
+	// í´ëž˜ìŠ¤ì—ë„ ë˜‘ê°™ì´ operatorë¥¼ ë§Œë“¤ìˆ˜ ìžˆë‹¤.
 
-
-	// UIµî¿¡¼­ ¾î¶² ±â´ÉÀ» È£ÃâÇÒ¶§ ÄÝ¹éÇÔ¼ö µîÀ¸·Î ¸¹ÀÌ »ç¿ëµÈ´Ù.
+	// UIë“±ì—ì„œ ì–´ë–¤ ê¸°ëŠ¥ì„ í˜¸ì¶œí• ë•Œ ì½œë°±í•¨ìˆ˜ ë“±ìœ¼ë¡œ ë§Žì´ ì‚¬ìš©ëœë‹¤.
 	return 0;
 }
